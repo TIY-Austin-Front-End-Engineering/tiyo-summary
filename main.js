@@ -22,6 +22,9 @@
 			zIndex: 100000,
 			fontWeight: 'bold',
 			fontSize: '30px',
+			textAlign: 'center',
+			paddingTop: '10em',
+			boxSizing: 'border-box'
 
 		})
 		$('body').append($loading);
