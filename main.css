@@ -1,0 +1,17 @@
+main {
+	max-width: 55em;
+	margin: 0 auto;
+}
+
+.bookmarklet {
+	display: block;
+	font-size: 2em;
+	color: #fff;
+	padding: 1em 0.5em;
+	background-color: orange;
+	max-width: 500px;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 0.25em;
+	margin: 0 auto;
+}
