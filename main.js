@@ -22,7 +22,7 @@
 			zIndex: 100000,
 			fontWeight: 'bold',
 			fontSize: '30px',
-			
+
 		})
 		$('body').append($loading);
 		var promises = $('.path-tree-level.assignment').map(function(index, el) {
@@ -30,6 +30,7 @@
 			var assignmentPath = $(el).find('.text-body').attr('href');
 			assignments[assignmentPath] = {
 				due: null,
+				hidden: false,
 				students: {}
 			};
 			if(assignmentPath) {
@@ -74,7 +75,8 @@
 					students[name].assignments.push({
 						name: i,
 						grade: assignment.students[name],
-						due: assignment.due
+						due: assignment.due,
+						hidden: assignment.hidden
 					});
 				}
 			}
@@ -93,10 +95,9 @@
 					return diff;
 				})
 				.filter(function(assignment) {
-					return !isNaN(assignment.due.getTime()) && assignment.due.getTime() <= Date.now();
+					return !assignment.hidden && !isNaN(assignment.due.getTime()) && assignment.due.getTime() <= Date.now();
 				})
 				.forEach(function(assignment) {
-					console.log(assignment);
 					$grades.append(getGradeElement(assignment));
 				});
 				
@@ -168,8 +169,10 @@
 
 		var $body = $(body);
 		var $students = $body.find('#submissions tr');
+		var $hidden = $body.find('#hidden-state');
 		var students = Array.prototype.slice.call($students, 0);
 		students.shift(); // Remove heading
+		self.hidden = $hidden.is(':checked');
 		for(var i=0; i<students.length; i++) {
 			var student = students[i];
 			var pieces = $(student).find('td');
